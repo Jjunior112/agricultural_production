@@ -25,10 +25,10 @@ def transform_to_silver():
     )
     
     # ==========================================================
-    # Padro nomes de estados e municipios
+    # Padroniza nomes de estados e municipios
     # ==========================================================
     
-    df['estado'] = df['estado'].str.title()
+    df['estado'] = df['estado'].str.upper()
 
     df['municipio'] = df['municipio'].str.title()
 
@@ -37,20 +37,6 @@ def transform_to_silver():
     # ==========================================================
 
     df['cultura'] = df['cultura'].str.strip()    
-
-    # ==========================================================
-    # Trata nulo da irrigação e fertilizante como não aplicado (somente esses nulos serão tratados na Silver)
-    # ==========================================================
-    
-    df['irrigacao_mm'] = df['irrigacao_mm'].fillna(0)
-    df['fertilizante_kg_ha'] = df['fertilizante_kg_ha'].fillna(0)
-    
-    # ==========================================================
-    # Remove colunas de tch,atr e art para evitar data leakage
-    # ==========================================================
-
-    df = df.drop(['tch', 'atr', 'art'], axis=1)
-
     
     silver_path.mkdir(parents=True,exist_ok=True)
 
@@ -74,5 +60,5 @@ def transform_to_silver():
     )
 
 
-#if __name__ == "__main__":
-transform_to_silver()
+if __name__ == "__main__":
+    transform_to_silver()
